@@ -33,14 +33,35 @@ namespace emgucvDemo
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left) return;
             toolStripStatusLabel1.Text = $"{e.Location.X},{e.Location.Y}";
             Rectangle rect = new Rectangle()
             {
-                X = e.Location.X - 10,
-                Y = e.Location.Y - 10,
-                Width = 20,
-                Height = 20
+                X = e.Location.X - 2,
+                Y = e.Location.Y - 2,
+                Width = 4,
+                Height = 4
             };
+            CountMinMax(rect);
+
+        }
+        private void CountMinMax(Rectangle rect)
+        {
+            rect.X = rect.X < 0 ? 0 : rect.X;
+            rect.Y = rect.Y < 0 ? 0 : rect.Y;
+
+            if (rect.Width + rect.X > mat.Width)
+            {
+                rect.Width = mat.Width - rect.X;
+            }
+
+            if (rect.Height + rect.Y > mat.Height)
+            {
+                rect.Height = mat.Height - rect.Y;
+            }
+
+
+            this.textBox1.Clear();
             int[] low = new int[3];
             int[] hie = new int[3];
             double[] min, max;
@@ -75,9 +96,7 @@ namespace emgucvDemo
             HH.Value = hie[0];
             HS.Value = hie[1];
             HV.Value = hie[2];
-
         }
-
         private void hsvFindColor()
         {
             Hsv botLimit = new Hsv((int)LH.Value, (int)LS.Value, (int)LV.Value);
@@ -171,6 +190,109 @@ namespace emgucvDemo
 
             hsv.Dispose();
             result.Dispose();
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                toolStripStatusLabel1.Text = $"{e.Location.X},{e.Location.Y}";
+                Rectangle rect = new Rectangle()
+                {
+                    X = e.Location.X - 2,
+                    Y = e.Location.Y - 2,
+                    Width = 4,
+                    Height = 4
+                };
+                CountMinMax(rect);
+            }
+        }
+
+
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FindCircles();
+        }
+
+        private void FindCircles()
+        {
+#if DEBUG
+            textBox1.Clear();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+#endif
+            Hsv botLimit = new Hsv((int)(LH.Value), (int)(LS.Value), (int)(LV.Value));
+            Hsv uprLimit = new Hsv((int)(HH.Value), (int)(HS.Value), (int)(HV.Value));
+
+
+            Image<Hsv, byte> hsv = mat.ToImage<Hsv, byte>();
+            var result = hsv.InRange(botLimit, uprLimit);
+            CvInvoke.GaussianBlur(result, result, new Size(3, 3), 0, 0);
+            CircleF[] circles = result.HoughCircles(new Gray((int)num_cannyThreshold.Value), new Gray((int)num_accumulatorThreshold.Value), 2, mat.Width / 8).First();
+
+
+
+#if DEBUG
+            sw.Stop();
+            this.textBox1.AppendText($"{sw.ElapsedMilliseconds}ms{Environment.NewLine}");
+            Image<Bgr, Byte> imageCircles = result.Convert<Bgr, byte>();
+            foreach (CircleF circle in circles)
+            {
+                imageCircles.Draw(circle, new Bgr(Color.Yellow), 2);
+                this.textBox1.AppendText($"[x={circle.Center.X},y={circle.Center.Y}]{Environment.NewLine}");
+            }
+
+
+            CvInvoke.NamedWindow("InRange");
+            CvInvoke.Imshow("InRange", result);
+
+
+            CvInvoke.NamedWindow("HoughCircles");
+            CvInvoke.Imshow("HoughCircles", imageCircles);
+            imageCircles.Dispose();
+#endif
+
+
+            hsv.Dispose();
+            result.Dispose();
+
+        }
+
+        private void num_accumulatorThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            FindCircles();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right) return;
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                mat?.Dispose();
+                foreach (var x in HSV)
+                {
+                    x.Dispose();
+                }
+                this.pictureBox1.Image?.Dispose();
+
+                mat = new Mat(ofd.FileName, LoadImageType.AnyColor);
+                this.pictureBox1.Image = mat.Bitmap;
+                HSV = mat.ToImage<Hsv, byte>().Split();
+
+            }
         }
     }
 }

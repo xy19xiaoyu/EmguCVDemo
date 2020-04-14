@@ -39,6 +39,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.num_cannyThreshold = new System.Windows.Forms.NumericUpDown();
+            this.num_accumulatorThreshold = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LS)).BeginInit();
@@ -47,6 +53,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.HH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HV)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_cannyThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_accumulatorThreshold)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -58,7 +67,10 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            this.pictureBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDoubleClick);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // textBox1
             // 
@@ -156,7 +168,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(441, 202);
+            this.button1.Location = new System.Drawing.Point(447, 402);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -177,15 +189,102 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(476, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(507, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(402, 363);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(120, 23);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "当前参数找圆";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(293, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "lowHSV";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(293, 144);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "HiHSV";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown1.Location = new System.Drawing.Point(396, 256);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
+            this.numericUpDown1.TabIndex = 14;
+            // 
+            // num_cannyThreshold
+            // 
+            this.num_cannyThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.num_cannyThreshold.Location = new System.Drawing.Point(396, 202);
+            this.num_cannyThreshold.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.num_cannyThreshold.Name = "num_cannyThreshold";
+            this.num_cannyThreshold.Size = new System.Drawing.Size(120, 21);
+            this.num_cannyThreshold.TabIndex = 13;
+            this.num_cannyThreshold.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // num_accumulatorThreshold
+            // 
+            this.num_accumulatorThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.num_accumulatorThreshold.Location = new System.Drawing.Point(396, 229);
+            this.num_accumulatorThreshold.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.num_accumulatorThreshold.Name = "num_accumulatorThreshold";
+            this.num_accumulatorThreshold.Size = new System.Drawing.Size(120, 21);
+            this.num_accumulatorThreshold.TabIndex = 12;
+            this.num_accumulatorThreshold.Value = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.num_accumulatorThreshold.ValueChanged += new System.EventHandler(this.num_accumulatorThreshold_ValueChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.num_cannyThreshold);
+            this.Controls.Add(this.num_accumulatorThreshold);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.HV);
@@ -208,6 +307,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.HV)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_cannyThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_accumulatorThreshold)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,6 +328,12 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown num_cannyThreshold;
+        private System.Windows.Forms.NumericUpDown num_accumulatorThreshold;
     }
 }
 
