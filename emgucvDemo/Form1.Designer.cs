@@ -42,9 +42,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.num_Dilate = new System.Windows.Forms.NumericUpDown();
             this.num_cannyThreshold = new System.Windows.Forms.NumericUpDown();
             this.num_accumulatorThreshold = new System.Windows.Forms.NumericUpDown();
+            this.num_Erode = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblDilate = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LS)).BeginInit();
@@ -53,9 +58,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.HH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HV)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Dilate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_cannyThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_accumulatorThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Erode)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -208,7 +214,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(293, 48);
+            this.label1.Location = new System.Drawing.Point(348, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 10;
@@ -218,24 +224,25 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(293, 144);
+            this.label2.Location = new System.Drawing.Point(354, 144);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 11;
             this.label2.Text = "HiHSV";
             // 
-            // numericUpDown1
+            // num_Dilate
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(396, 256);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.num_Dilate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.num_Dilate.Location = new System.Drawing.Point(396, 274);
+            this.num_Dilate.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
-            this.numericUpDown1.TabIndex = 14;
+            this.num_Dilate.Name = "num_Dilate";
+            this.num_Dilate.Size = new System.Drawing.Size(120, 21);
+            this.num_Dilate.TabIndex = 14;
+            this.num_Dilate.ValueChanged += new System.EventHandler(this.num_Dilate_ValueChanged);
             // 
             // num_cannyThreshold
             // 
@@ -274,12 +281,71 @@
             0});
             this.num_accumulatorThreshold.ValueChanged += new System.EventHandler(this.num_accumulatorThreshold_ValueChanged);
             // 
+            // num_Erode
+            // 
+            this.num_Erode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.num_Erode.Location = new System.Drawing.Point(396, 296);
+            this.num_Erode.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.num_Erode.Name = "num_Erode";
+            this.num_Erode.Size = new System.Drawing.Size(120, 21);
+            this.num_Erode.TabIndex = 16;
+            this.num_Erode.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(300, 204);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 12);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "cannyThreshold";
+            // 
+            // lblDilate
+            // 
+            this.lblDilate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDilate.AutoSize = true;
+            this.lblDilate.Location = new System.Drawing.Point(348, 278);
+            this.lblDilate.Name = "lblDilate";
+            this.lblDilate.Size = new System.Drawing.Size(41, 12);
+            this.lblDilate.TabIndex = 18;
+            this.lblDilate.Text = "Dilate";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(354, 298);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 12);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Erode";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(264, 231);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 12);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "accumulatorThreshold";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblDilate);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.num_Erode);
+            this.Controls.Add(this.num_Dilate);
             this.Controls.Add(this.num_cannyThreshold);
             this.Controls.Add(this.num_accumulatorThreshold);
             this.Controls.Add(this.label2);
@@ -307,9 +373,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.HV)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Dilate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_cannyThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_accumulatorThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Erode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,9 +398,14 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown num_Dilate;
         private System.Windows.Forms.NumericUpDown num_cannyThreshold;
         private System.Windows.Forms.NumericUpDown num_accumulatorThreshold;
+        private System.Windows.Forms.NumericUpDown num_Erode;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblDilate;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 

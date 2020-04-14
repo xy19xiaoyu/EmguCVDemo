@@ -105,6 +105,10 @@ namespace emgucvDemo
             Image<Hsv, byte> hsv = mat.ToImage<Hsv, byte>();
             var result = hsv.InRange(botLimit, uprLimit);
 
+            result = result.Dilate((int)num_Dilate.Value);
+
+            result = result.Erode((int)num_Erode.Value);
+
 #if DEBUG
             CvInvoke.NamedWindow("xy1");
             CvInvoke.Imshow("xy1", result);
@@ -234,7 +238,9 @@ namespace emgucvDemo
 
             Image<Hsv, byte> hsv = mat.ToImage<Hsv, byte>();
             var result = hsv.InRange(botLimit, uprLimit);
-            CvInvoke.GaussianBlur(result, result, new Size(3, 3), 0, 0);
+            //CvInvoke.GaussianBlur(result, result, new Size(3, 3), 0, 0);
+            result = result.Dilate((int)num_Dilate.Value);
+            result = result.Erode((int)num_Erode.Value);
             CircleF[] circles = result.HoughCircles(new Gray((int)num_cannyThreshold.Value), new Gray((int)num_accumulatorThreshold.Value), 2, mat.Width / 8).First();
 
 
@@ -293,6 +299,21 @@ namespace emgucvDemo
                 HSV = mat.ToImage<Hsv, byte>().Split();
 
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void num_Dilate_ValueChanged(object sender, EventArgs e)
+        {
+            hsvFindColor();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            hsvFindColor();
         }
     }
 }
