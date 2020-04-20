@@ -74,10 +74,28 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSmooth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSmooth.Designer.cs">
+      <DependentUpon>FrmSmooth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HSV_Split.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HSV_Split.Designer.cs">
+      <DependentUpon>HSV_Split.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSmooth.resx">
+      <DependentUpon>FrmSmooth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HSV_Split.resx">
+      <DependentUpon>HSV_Split.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
